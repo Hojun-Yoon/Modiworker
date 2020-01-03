@@ -21,6 +21,7 @@ const App = ({ user, isGuest }) => {
   // }
   return (
     <Switch>
+      {/* <Route exact path="/" component={LandingPage} /> */}
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/signup" component={SignUp} />
       <Redirect to="/" />

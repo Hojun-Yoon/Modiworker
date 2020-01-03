@@ -21,14 +21,15 @@ const persistMiddleware = store => next => action => {
       const entry = { user };
       const userData = denormalize(userId, userSchema, entry);
       fetch("/api/user", {
-        method: "PUT",
+        method: "POST",
         body: JSON.stringify(userData),
         headers: { "Content-Type": "application/json" },
         credentials: "include"
       }).then(
-        () => {
+        result => {
           alert("성공");
-          this.context.router.push("/");
+          window.location.replace("/");
+          //this.context.router.push("/");
         },
         error => alert("실패", error)
       );

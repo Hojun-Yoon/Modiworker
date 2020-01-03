@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import shortid from "shortid";
+import Textarea from "react-textarea-autosize";
 import { connect } from "react-redux";
+import "./SignUp.scss";
 
 class SignUp extends Component {
   constructor() {
@@ -56,28 +58,52 @@ class SignUp extends Component {
     console.log(name, email);
     // onSubmit={this.handleSubmit}
     return (
-      <div className="signup_submit">
-        <h2>회원가입</h2>
-        <form name="form">
+      <div className="signup-page">
+        <div className="signup-page-wrapper">
+          <div className="signup-page-info">
+            <div className="signup-heading">
+              <h1>회원가입</h1>
+            </div>
+          </div>
+        </div>
+        <form name="form" className="form">
           <div className={"form-group" + (!name ? " has-error" : "")}>
-            <label htmlFor="name">이름</label>
-            <input
+            <label htmlFor="name">이름{"\n"}</label>
+            {/* <input
               type="text"
               className="input-text"
               name="name"
               value={name}
               onChange={this.handleChange}
+            /> */}
+            <Textarea
+              autoFocus
+              useCacheForDOMMeasurements
+              name="name"
+              value={name}
+              onChange={this.handleChange}
+              spellCheck={false}
+              className="textarea"
             />
             {!name && <div className="submit-block">이름을 입력해주세요.</div>}
           </div>
           <div className={"form-group" + (!email ? " has-error" : "")}>
             <label htmlFor="email">이메일</label>
-            <input
+            {/* <input
               type="text"
               className="input-text"
               name="email"
               value={email}
               onChange={this.handleChange}
+            /> */}
+            <Textarea
+              autoFocus
+              useCacheForDOMMeasurements
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+              spellCheck={false}
+              className="textarea"
             />
             {!email && (
               <div className="submit-block">이메일을 입력해주세요.</div>
@@ -85,12 +111,21 @@ class SignUp extends Component {
           </div>
           <div className={"form-group" + (!password ? " has-error" : "")}>
             <label htmlFor="password">비밀번호</label>
-            <input
+            {/* <input
               type="password"
               className="input-text"
               name="password"
               value={password}
               onChange={this.handleChange}
+            /> */}
+            <Textarea
+              autoFocus
+              useCacheForDOMMeasurements
+              name="password"
+              value={password}
+              onChange={this.handleChange}
+              spellCheck={false}
+              className="textarea"
             />
             {!password && (
               <div className="submit-block">비밀번호를 입력해주세요.</div>
@@ -105,12 +140,21 @@ class SignUp extends Component {
             }
           >
             <label htmlFor="passwordConfirm">비밀번호 확인</label>
-            <input
+            {/* <input
               type="password"
               className="input-text"
               name="passwordConfirm"
               value={passwordConfirm}
               onChange={this.handleChange}
+            /> */}
+            <Textarea
+              autoFocus
+              useCacheForDOMMeasurements
+              name="passwordConfirm"
+              value={passwordConfirm}
+              onChange={this.handleChange}
+              spellCheck={false}
+              className="textarea"
             />
             {password !== passwordConfirm && (
               <div className="submit-block">
@@ -120,7 +164,7 @@ class SignUp extends Component {
             )}
           </div>
           <div className="form-group">
-            <button className="confirm-btn" onClick={this.handleSubmit}>
+            <button className="signup-button" onClick={this.handleSubmit}>
               회원가입
             </button>
             {/* {this.state.submitted === true
