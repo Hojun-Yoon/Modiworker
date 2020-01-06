@@ -9,10 +9,9 @@ class SignUp extends Component {
     super();
     this.state = {
       name: "",
-      email: "",
+      username: "",
       password: "",
-      passwordConfirm: "",
-      submitted: false
+      passwordConfirm: ""
     };
   }
 
@@ -26,37 +25,32 @@ class SignUp extends Component {
 
   handleSubmit = () => {
     const { dispatch } = this.props;
-    const { name, email, password, passwordConfirm } = this.state;
+    const { name, username, password, passwordConfirm } = this.state;
     const userId = shortid.generate();
 
     if (
       name &&
-      email &&
+      username &&
       password &&
       passwordConfirm &&
       password === passwordConfirm
     ) {
       dispatch({
         type: "ADD_USER",
-        payload: { name, email, password, userId }
+        payload: { name, username, password, userId }
       });
       this.setState({
         name: "",
-        email: "",
+        username: "",
         password: "",
-        passwordConfirm: "",
-        submitted: true
+        passwordConfirm: ""
       });
       //history.push("/");
     }
   };
 
   render = () => {
-    const { name, email, password, passwordConfirm, submitted } = this.state;
-    const { history } = this.props;
-    console.log("테스트 중입니다.", this.state.name);
-    console.log(name, email);
-    // onSubmit={this.handleSubmit}
+    const { name, username, password, passwordConfirm } = this.state;
     return (
       <div className="signup-page">
         <div className="signup-page-wrapper">
@@ -87,25 +81,25 @@ class SignUp extends Component {
             />
             {!name && <div className="submit-block">이름을 입력해주세요.</div>}
           </div>
-          <div className={"form-group" + (!email ? " has-error" : "")}>
-            <label htmlFor="email">이메일</label>
+          <div className={"form-group" + (!username ? " has-error" : "")}>
+            <label htmlFor="username">이메일</label>
             {/* <input
               type="text"
               className="input-text"
-              name="email"
-              value={email}
+              name="username"
+              value={username}
               onChange={this.handleChange}
             /> */}
             <Textarea
               autoFocus
               useCacheForDOMMeasurements
-              name="email"
-              value={email}
+              name="username"
+              value={username}
               onChange={this.handleChange}
               spellCheck={false}
               className="textarea"
             />
-            {!email && (
+            {!username && (
               <div className="submit-block">이메일을 입력해주세요.</div>
             )}
           </div>
@@ -121,6 +115,7 @@ class SignUp extends Component {
             <Textarea
               autoFocus
               useCacheForDOMMeasurements
+              type="password"
               name="password"
               value={password}
               onChange={this.handleChange}
@@ -150,6 +145,7 @@ class SignUp extends Component {
             <Textarea
               autoFocus
               useCacheForDOMMeasurements
+              type="password"
               name="passwordConfirm"
               value={passwordConfirm}
               onChange={this.handleChange}

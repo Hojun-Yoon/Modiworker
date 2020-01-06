@@ -17,7 +17,54 @@ header {
   z-index: 2;
   transition: background 0.3s;
 }
+// .modal-icon {
+//   display: inline-flex;
+//   color: white;
+//   background-color: inherit;
+//   text-align: center;
+//   text-decoration: none;
+// }
+// .signout-link:focus,
+// .signout-link:hover {
+//   background: $less-transparent-black;
+// }
+// .info-delete-btn {
+//   margin-top: 5px;
+//   background-color: #e74c3c;
+//   border-radius: 3px;
+// }
+.delete-confirm-btn {
+  margin-top: 10px;
+  padding: 5px 5px;
+  color: white;
+  background-color: #e74c3c;
+  border-radius: 3px;
+}
+.popup-size {
+  width: 30px;
+}
 
+.modal-icon-sub {
+  margin-top: 3px;
+  margin-bottom: 2px;
+  padding: 5px 5px 1px 5px;
+  margin-left: 12px;
+  border: 1px solid $transparent-black;
+  border-radius: 3px;
+  color: white;
+  background: $transparent-black;
+  text-decoration: none;
+}
+.modal-icon-sub:focus,
+.modal-icon-sub:hover {
+  background: $less-transparent-black;
+}
+.modal-message {
+  color: #212121;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .green header {
   background: $transparent-green;
 }
@@ -59,8 +106,8 @@ header {
 }
 
 .guest-icon {
-  padding-top: 2px;
-  font-size: 24px;
+  padding-top: 0px;
+  font-size: 22px;
 }
 
 .signout-link {
@@ -83,14 +130,36 @@ header {
   font-size: 22px;
 }
 
+.info-edit-btn {
+  margin-left: 1px;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: white;
+  background: #8e44ad;
+  text-align: center;
+  cursor: pointer;
+}
+
+.info-delete-btn {
+  margin-left: 4px;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: white;
+  background: #d35400;
+  text-align: center;
+  cursor: pointer;
+}
+
 // Some things have to be removed for mobile layouts to avoid overflowing
 @media (max-width: 700px) {
   .user-thumbnail,
-  .guest-icon {
-    display: none;
-  }
+  // .guest-icon {
+  //   display: none;
+  // }
 
   .signout-link {
-    margin-left: 0px;
+    margin-left: 2px;
   }
 }

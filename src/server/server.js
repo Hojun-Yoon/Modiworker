@@ -13,6 +13,8 @@ import renderPage from "./renderPage";
 import configurePassport from "./passport";
 import api from "./routes/api";
 import fetchBoardData from "./fetchBoardData";
+var flash = require("connect-flash");
+var bodyParser = require("body-parser");
 // Load environment variables from .env file
 dotenv.config();
 
@@ -20,37 +22,43 @@ const app = express();
 
 const MongoStore = connectMongo(session);
 
-MongoClient.connect("mongodb://localhost:27017").then(client => {
+MongoClient.connect("mongodb://localhost:27017", {
+  useUnifiedTopology: true
+}).then(client => {
   const db = client.db("modiworker");
 
-  //   configurePassport(db);
+  //configurePassport(db);
 
   app.use(helmet());
   app.use(logger("tiny"));
   app.use(compression());
-  app.use(favicon("dist/public/favicons/favicon.ico"));
+  //app.use(favicon("dist/public/favicons/favicon.ico"));
   app.use(express.json());
+  // app.use(bodyParser.json());
+  // app.use(bodyParser.urlencoded({ extended: true }));
   app.use(express.urlencoded({ extended: true }));
   // aggressive cache static assets (1 year)
   app.use("/static", express.static("dist/public", { maxAge: "1y" }));
 
   // Persist session in mongoDB
-  // app.use(
-  //   session({
-  //     store: new MongoStore({ db }),
-  //     secret: process.env.SESSION_SECRET,
-  //     resave: false,
-  //     saveUninitialized: false
-  //   })
-  // );
-  // app.use(passport.initialize());
-  // app.use(passport.session());
-  // app.use("/auth", auth);
+  app.use(
+    session({
+      store: new MongoStore({ db }),
+      secret: "secret_session",
+      resave: false,
+      saveUninitialized: true
+      //saveUninitialized: false
+    })
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(flash());
+  configurePassport(db);
   app.use("/api", api(db));
   app.use(fetchBoardData(db));
   app.get("*", renderPage);
-
-  const port = process.env.PORT || "1338";
+  //console.log(passport, "passport");
+  const port = process.env.PORT || "1960";
   /* eslint-disable no-console */
   app.listen(port, () => console.log(`Server listening on port ${port}`));
 });

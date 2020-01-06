@@ -6,24 +6,29 @@ import Home from "./Home/Home";
 import BoardContainer from "./Board/BoardContainer";
 import LandingPage from "./LandingPage/LandingPage";
 import SignUp from "./SignUp/SignUp";
+import Login from "./Login/Login";
+import Edit from "./Edit/Edit";
 import "./App.scss";
 
 const App = ({ user, isGuest }) => {
   // If not logged in, always redirect to landing page
-  // if (isGuest) {
-  //   return (
-  //     <Switch>
-  //       <Route exact path="/" component={Home} />
-  //       <Route path="/b/:boardId" component={BoardContainer} />
-  //       <Redirect to="/" />
-  //     </Switch>
-  //   );
-  // }
+  if (user._id) {
+    console.log(user._id, "app 페이지 user 데이터 확인");
+    return (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/b/:boardId" component={BoardContainer} />
+        <Route path="/edit" component={Edit} />
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
   return (
     <Switch>
       {/* <Route exact path="/" component={LandingPage} /> */}
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/login" component={Login} />
       <Redirect to="/" />
     </Switch>
   );

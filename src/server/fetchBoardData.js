@@ -22,15 +22,19 @@ const normalizeBoards = boards => {
 // Fetch board data and append to req object as intialState which will be put inside redux store on the client
 const fetchBoardData = db => (req, res, next) => {
   // Fetch a user's private boards from db if a user is logged in
-
-  const collection = db.collection("boards");
-  collection
-    .find({ $or: [{ users: "guest" }, { isPublic: true }] })
-    .toArray()
-    .then(boards => {
-      req.initialState = { ...normalizeBoards(boards), user: req.user };
-      next();
-    });
+  if (req.user) {
+    const collection = db.collection("boards");
+    collection
+      .find({ $or: [{ users: req.user.username }, { isPublic: true }] })
+      .toArray()
+      .then(boards => {
+        req.initialState = { ...normalizeBoards(boards), user: req.user };
+        next();
+      });
+  } else {
+    console.log("유저정보 없음 확인");
+    next();
+  }
 };
 
 export default fetchBoardData;

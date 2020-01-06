@@ -45,12 +45,13 @@ class LandingPage extends Component {
             </Link>
           </div>
           <div className="guest-button-wrapper">
-            <button
-              onClick={this.enterAsGuest}
+            <Link
+              to={"/login"}
               className="signin-button guest-button"
+              onClick={this.enterAsGuest}
             >
               <FaLogin className="logo-icon" /> &nbsp;Login
-            </button>
+            </Link>
           </div>
         </div>
       </div>
